@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ book.name }} - wypożycz{% endblock %}
+
+{% block body %}
+    <div class="row g-5">
+        <div class="col-md-12">
+            <h2>Szczegóły książki</h2>
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top p-5" src="{{ asset('images/book.png') }}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.name }}</h5>
+                    <p class="card-text">{{ book.description}}</p>
+                    <p class="card-text">Dostępne: {{ book.availability.available }} / {{ book.availability.total }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            {% if book.reviews.count < 1 %}
+            <div class="alert alert-secondary" role="alert">
+                Brak recencji, bądź pierwszy i napisz co myślisz o tej pozycji
+            </div>
+            {% else %}
+                {% for review in book.reviews %}
+                    <div class="card mt-1">
+                        <div class="card-body">
+                            <p>
+                                Ocena: {{ review.rating }} / 10
+                            </p>
+                            <p>
+                                {{ review.review }}
+                            </p>
+                            <small>{{ review.author }}, {{ review.createdAt|date('Y-m-d H:i:s') }}</small>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            {% if app.user %}
+            <div class="col-md-6">
+                <hr  />
+                <h4>Dodaj recenzję</h4>
+                {{ form_start(form) }}
+                <div class="form-group">
+                    {{ form_row(form.author,
+                        {
+                            'label': 'Twoje imie lub pseudonim ',
+                        })
+                    }}
+                    {{ form_row(form.review,
+                        {
+                            'label': 'Wpisz swoją recenzję, jeśli chcesz tylko ocenić, zostaw puste',
+                        })
+                    }}
+                    {{ form_row(form.rating,
+                        {
+                            'label': 'Ocena w skali od 1 do 10',
+                        })
+                    }}
+                    {{ form_row(form.submit,
+                        {
+                            'label': 'Prześlij ocenę',
+                        })
+                    }}
+                </div>
+                {{ form_end(form) }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

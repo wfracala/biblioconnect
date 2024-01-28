@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Strona główna!{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <p class="fs-5 col-md-8">
+        BiblioConnect to innowacyjna platforma do rezerwowania i wypożyczania ksiażek online.
+    </p>
+
+    <div class="mb-5">
+        <a href="{{ path('app_catalog_browse') }}" class="btn btn-primary btn-lg px-4">Zobacz katalog dostępnych pozycji</a>
+    </div>
+
+    <hr class="col-3 col-md-2 mb-5">
+</div>
+{% endblock %}

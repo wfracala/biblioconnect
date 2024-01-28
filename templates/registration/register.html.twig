@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rejestracja{% endblock %}
+
+{% block body %}
+    <div class="form-group row">
+        <div class="col-md-4">
+            {{ form_errors(registrationForm) }}
+
+            {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.firstName, {
+                label: 'Imie'
+            }) }}
+            {{ form_row(registrationForm.lastName, {
+                label: 'Nazwisko'
+            }) }}
+            {{ form_row(registrationForm.address, {
+                label: 'Adres'
+            }) }}
+            {{ form_row(registrationForm.email, {
+                label: 'Adres e-mail'
+            }) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Hasło'
+            }) }}
+            {{ form_row(registrationForm.agreeTerms, {
+                label: 'Akceptuje regulamin'
+            }) }}
+            {{ form_row(registrationForm.submit, {
+                'label': 'Zarejestruj się'
+            }) }}
+            {{ form_end(registrationForm) }}
+        </div>
+    </div>
+{% endblock %}

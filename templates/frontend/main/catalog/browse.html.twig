@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Katalog{% endblock %}
+{% block body %}
+<div class="row g-5">
+    <div class="col-md-12">
+        <h2>Dostępne pozycje</h2>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                {{ form_row(form.searchPattern, {
+                    'label': 'Wpisz autora lub tytuł'
+                }) }}
+            </div>
+            <div class="col-12">
+                <div class="activity__form__submit">
+                    {{ form_row(form.submit, {
+                        'label': 'Szukaj'
+                    }) }}
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+        <table class="table table-responsive table-hover">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nazwa</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Opis</th>
+                <th scope="col">Dostępność</th>
+                <th scope="col">Recenzje</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for position in catalog %}
+                <tr>
+                    <td>{{ position.id }}</td>
+                    <td>{{ position.name }}</td>
+                    <td>{% for author in position.author %}{{ author.name }}{% endfor %}</td>
+                    <td>{{ position.description }}</td>
+                    <td>{{ position.availability.available }} / {{ position.availability.total }}</td>
+                    <td>
+                        <a class="btn btn-light" href="{{ path('app_book_details', {id: position.id}) }}">Szczegóły</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
